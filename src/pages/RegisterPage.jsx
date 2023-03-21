@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { CompleteRegister } from "../components/CompleteRegister";
 import useAuth from "../hooks/useAuth";
 
-function RegisterPage() {
+export function RegisterPage() {
   const { userAuth, stateAuth } = useAuth();
 
   if (stateAuth === 3) {
@@ -10,7 +10,7 @@ function RegisterPage() {
   }
 
   if (stateAuth === 2) {
-    return <Navigate to={"/feedback"} />;
+    return <Navigate to={"/feedback/all"} />;
   }
 
   if (stateAuth === 4) {
@@ -19,5 +19,3 @@ function RegisterPage() {
 
   return <h3>Cargando...</h3>;
 }
-
-export default RegisterPage;
