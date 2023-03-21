@@ -1,4 +1,5 @@
-export { BoardPage } from "./BoardPage";
-export { FeedbackPage } from "./FeedbackPage";
-export { LoginRegister } from "./LoginRegisterPage";
-export { RegisterPage } from "./RegisterPage";
+export * from "./BoardPage";
+export * from "./CreateSuggestionPage";
+export * from "./FeedbackPage";
+export * from "./LoginRegisterPage";
+export * from "./RegisterPage";

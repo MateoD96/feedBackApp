@@ -1,6 +1,7 @@
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import { Board } from "../components";
+import { SuggestionsProvider } from "../context/SuggestionsContext";
 
 export function BoardPage() {
   const { userAuth, stateAuth } = useAuth();
@@ -14,7 +15,11 @@ export function BoardPage() {
   }
 
   if (stateAuth === 2) {
-    return <Board userAuth={userAuth} />;
+    return (
+      <SuggestionsProvider>
+        <Board userAuth={userAuth} />;
+      </SuggestionsProvider>
+    );
   }
 
   return <h3>Cargando...</h3>;
