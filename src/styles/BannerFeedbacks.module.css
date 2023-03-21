@@ -1,0 +1,71 @@
+.cont {
+  background-color: #373e68;
+  padding: 0.5rem 0;
+}
+
+.layout {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 30em) {
+  .layout {
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 30em) {
+  .cont {
+    border-radius: 1rem;
+  }
+}
+
+.title h2 {
+  color: #fff;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.title {
+  display: none;
+}
+
+@media screen and (min-width: 30em) {
+  .title {
+    display: block;
+  }
+}
+
+.order span {
+  margin-right: 0.5rem;
+  color: #d5d8e5;
+}
+
+.order select {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+}
+
+.order option {
+  background-color: #373e68;
+  outline: none;
+}
+
+.btnAdd button {
+  background-color: #ae1feb;
+  border-radius: 0.5rem;
+  color: #fff;
+  padding: 0.7rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}

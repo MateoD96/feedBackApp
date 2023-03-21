@@ -60,3 +60,18 @@ export async function registerNewUser(userId, data) {
     console.error(err);
   }
 }
+
+export async function getData(coll) {
+  const dataArr = [];
+  try {
+    const refColl = collection(db, coll);
+    const resp = await getDocs(refColl);
+    resp.forEach((dat) => {
+      const newObj = { ...dat.data(), idDoc: dat.id };
+      dataArr.push(newObj);
+    });
+    return dataArr;
+  } catch (err) {
+    console.error(err);
+  }
+}
