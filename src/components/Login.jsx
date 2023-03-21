@@ -9,7 +9,7 @@ export function Login() {
   const fnLogin = async ({ email, password }) => {
     const resp = await signInWithEmailAndPassword(auth, email, password);
     if (resp.user) {
-      navigate("/feedback");
+      navigate("/feedback/all");
     }
   };
   return (

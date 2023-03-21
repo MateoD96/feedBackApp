@@ -4,12 +4,12 @@ import { Login, Register } from "../components";
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 
-function LoginRegister() {
+export function LoginRegister() {
   const [action, setAction] = useState("login");
   const { userAuth, stateAuth } = useAuth();
 
   if (stateAuth === 2) {
-    return <Navigate to={"/feedback"} />;
+    return <Navigate to={"/feedback/all"} />;
   }
 
   if (stateAuth === 4) {
@@ -26,5 +26,3 @@ function LoginRegister() {
 
   return <h3>Cargando...</h3>;
 }
-
-export default LoginRegister;
