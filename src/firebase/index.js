@@ -11,6 +11,8 @@ import {
   setDoc,
   query,
   addDoc,
+  limit,
+  startAfter,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -86,4 +88,52 @@ export async function createSuggestion(data) {
   } catch (err) {
     console.error(err);
   }
+}
+
+export function getSuggestions() {
+  const refColl = collection(db, "suggestions");
+  let lastVisible;
+
+  const getAllSuggestions = async () => {
+    const q = query(refColl, limit(10));
+    const querySnapshot = await getDocs(q);
+    //referecnia al ultimo elemento de la consulta
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    const data = await printData(querySnapshot);
+    return data;
+  };
+
+  const getFilterSuggestions = async (filter) => {
+    const q = query(refColl, where("categorie", "==", filter), limit(10));
+    const querySnapshot = await getDocs(q);
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    const data = await printData(querySnapshot);
+    return data;
+  };
+
+  const printData = async (querySnapshot) => {
+    const data = [];
+    try {
+      querySnapshot.forEach((objDat) => {
+        const newObj = { ...objDat.data(), idDoc: objDat.id };
+        data.push(newObj);
+      });
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getNext = async () => {
+    const nextDat = query(refColl, startAfter(lastVisible), limit(10));
+    const querySnapshot = await getDocs(nextDat);
+    const data = await printData(querySnapshot);
+    return data;
+  };
+
+  return {
+    getAllSuggestions,
+    getFilterSuggestions,
+    getNext,
+  };
 }
