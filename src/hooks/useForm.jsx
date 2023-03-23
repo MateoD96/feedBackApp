@@ -1,44 +1,52 @@
 import { useState } from "react";
 
-function useForm(initialForm) {
-  const [form, setForm] = useState(initialForm);
-  const [objValidate, setObjValidate] = useState({});
+function useForm(initialForm, validate, actionForm) {
+  const [values, setValues] = useState(initialForm);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
   };
 
-  const handleBlur = (e) => {
-    if (e.target.type === "email") {
-      const reEmail =
-        /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/;
-      fnValidate(e, "email", reEmail);
-    }
-
-    if (e.target.type === "password") {
-      const rePassword = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
-      fnValidate(e, "password", rePassword);
-    }
-  };
-
-  const fnValidate = (e, field, regExp) => {
-    if (regExp.test(form[field])) {
-      setObjValidate({ ...objValidate, [field]: true });
-      e.target.style.borderColor = "greenyellow";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      // hacer algo con los datos del formulario si no hay errores de validación
+      actionForm(values);
     } else {
-      setObjValidate({ ...objValidate, [field]: false });
-      e.target.style.borderColor = "red";
+      console.log(errors);
     }
+  };
+
+  const resetForm = () => {
+    setValues(initialForm);
+    setErrors({});
+  };
+
+  const isFieldValid = (name) => {
+    return !errors[name];
+  };
+
+  const isFormValid = () => {
+    return Object.keys(errors).length === 0;
+  };
+
+  const getErrorMessage = (name) => {
+    return errors[name] || "";
   };
 
   return {
+    values,
+    errors,
     handleChange,
-    handleBlur,
-    form,
-    objValidate,
+    handleSubmit,
+    resetForm,
+    isFieldValid,
+    isFormValid,
+    getErrorMessage,
   };
 }
 
