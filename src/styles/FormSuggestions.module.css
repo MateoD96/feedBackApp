@@ -1,0 +1,136 @@
+.layout {
+  width: 95%;
+  padding-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 30em) {
+  .layout {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 68em) {
+  .layout {
+    width: 80%;
+  }
+}
+
+.back {
+  display: flex;
+  align-items: center;
+}
+
+.back a {
+  text-decoration: none;
+}
+
+.contForm {
+  background-color: #fff;
+  position: relative;
+  padding: 1rem;
+  margin-top: 4rem;
+}
+
+.icon {
+  top: -2rem;
+  left: 1rem;
+  position: absolute;
+  background-image: linear-gradient(45deg, #50adf2, #9d3ef6, #d75094);
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.icon * {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.title {
+  font-size: 0.8rem;
+  color: #545d87;
+  margin: 1.5rem 0;
+}
+
+.contInpt input,
+textarea,
+.contSelect select {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 0.5rem 0.2rem;
+  background-color: #f7f8fd;
+  outline-color: #ae1feb;
+}
+
+.contSelect,
+.contInpt label {
+  display: block;
+  margin: 0.5rem 0;
+  color: #545d87;
+}
+
+.contInpt,
+.contSelect {
+  margin: 2rem 0;
+  position: relative;
+}
+
+.contInpt textarea {
+  height: 15vh;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 30em) {
+  .btns {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.btns input {
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 30em) {
+  .btns input {
+    margin-left: 0.5rem;
+  }
+}
+
+.btns input[type="submit"] {
+  background-color: #ae1feb;
+}
+
+.btns input[type="reset"] {
+  background-color: #373e68;
+}
+
+.btns input[type="submit"],
+.btns input[type="reset"] {
+  color: #fff;
+}
+
+.error {
+  color: rgb(231, 84, 84);
+  font-size: 0.7rem;
+  position: absolute;
+  margin: 0.5rem 0;
+}

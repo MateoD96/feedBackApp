@@ -9,6 +9,8 @@ import {
   where,
   getFirestore,
   setDoc,
+  query,
+  addDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -71,6 +73,16 @@ export async function getData(coll) {
       dataArr.push(newObj);
     });
     return dataArr;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function createSuggestion(data) {
+  try {
+    const collRef = collection(db, "suggestions");
+    const resp = await addDoc(collRef, data);
+    return resp ? resp.id : null;
   } catch (err) {
     console.error(err);
   }

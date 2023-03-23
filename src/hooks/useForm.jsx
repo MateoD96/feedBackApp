@@ -16,6 +16,7 @@ function useForm(initialForm, validate, actionForm) {
     if (Object.keys(validationErrors).length === 0) {
       // hacer algo con los datos del formulario si no hay errores de validación
       actionForm(values);
+      resetForm();
     } else {
       console.log(errors);
     }
