@@ -20,7 +20,7 @@ export function CompleteRegister({ userAuth }) {
       if (!usernameExist) {
         await registerNewUser(userAuth.uid, { username: username });
         setLoading(false);
-        navigate("/feedback");
+        navigate("/feedback/all");
       } else {
         setLoading(false);
         setMessage(true);

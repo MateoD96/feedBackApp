@@ -3,3 +3,4 @@ export * from "./CreateSuggestionPage";
 export * from "./FeedbackPage";
 export * from "./LoginRegisterPage";
 export * from "./RegisterPage";
+export * from "./SuggestionPage";

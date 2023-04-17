@@ -1,9 +1,14 @@
 import styles from "../styles/BannerFeedbacks.module.css";
+import { useNavigate } from "react-router";
 
 export function BtnAddFeedback() {
+  const navigate = useNavigate();
+
+  const redirectToCreatePage = () => navigate("/feedback/create");
+
   return (
     <div className={styles.btnAdd}>
-      <button> + Add Feedback</button>
+      <button onClick={redirectToCreatePage}> + Add Feedback</button>
     </div>
   );
 }

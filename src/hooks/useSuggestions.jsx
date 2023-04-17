@@ -2,15 +2,16 @@ import { useContext, useEffect } from "react";
 import ContextSuggestions from "../context/SuggestionsContext";
 
 function useSuggestions(board) {
-  const { getSuggestionsFilter, getSuggestionsAll, suggestions } =
+  const { fnGetSuggestions, suggestions, loading } =
     useContext(ContextSuggestions);
 
   useEffect(() => {
-    board ? getSuggestionsFilter(board) : getSuggestionsAll();
+    fnGetSuggestions(board);
   }, [board]);
 
   return {
     suggestions,
+    loading,
   };
 }
 

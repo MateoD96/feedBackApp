@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 import {
   doc,
   getDoc,
@@ -95,7 +95,7 @@ export function getSuggestions() {
   let lastVisible;
 
   const getAllSuggestions = async () => {
-    const q = query(refColl, limit(10));
+    const q = query(refColl, limit(5));
     const querySnapshot = await getDocs(q);
     //referecnia al ultimo elemento de la consulta
     lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -136,4 +136,14 @@ export function getSuggestions() {
     getFilterSuggestions,
     getNext,
   };
+}
+
+export async function getSuggestion(idDoc) {
+  try {
+    const refD = doc(db, "suggestions", idDoc);
+    const res = await getDoc(refD);
+    return res.data();
+  } catch (err) {
+    console.error(err);
+  }
 }

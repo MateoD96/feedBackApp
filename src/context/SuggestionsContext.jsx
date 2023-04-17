@@ -5,23 +5,33 @@ const ContextSuggestions = createContext();
 
 const SuggestionsProvider = ({ children }) => {
   const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { getAllSuggestions, getFilterSuggestions, getNext } = getSuggestions();
 
-  const getSuggestionsFilter = async (paramsFilter) => {
-    console.log(paramsFilter);
-  };
-
-  const getSuggestionsAll = async () => {
-    const data = await getAllSuggestions();
+  const printData = (data) => {
     if (data) {
       setSuggestions(data);
     }
   };
 
+  const fnGetSuggestions = async (paramsFilter) => {
+    setLoading(true);
+    if (paramsFilter !== "all") {
+      const dataFilter = await getFilterSuggestions(paramsFilter);
+      printData(dataFilter);
+      setLoading(false);
+      return;
+    }
+    const data = await getAllSuggestions();
+    printData(data);
+    setLoading(false);
+  };
+
   const data = {
-    getSuggestionsFilter,
-    getSuggestionsAll,
+    fnGetSuggestions,
     suggestions,
+    loading,
   };
 
   return (

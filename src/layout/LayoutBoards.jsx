@@ -11,6 +11,7 @@ function LayoutBoards({ children }) {
         <NavigationBoards boards={data} />
         <div>
           <BannerFeedbacks />
+          {children}
         </div>
       </div>
     </div>

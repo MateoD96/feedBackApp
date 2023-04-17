@@ -59,8 +59,8 @@ export function FormSuggestions({ datEdit = null, action }) {
               <option value="" defaultValue>
                 Select
               </option>
-              <option value="UX">UI</option>
-              <option value="UI">UX</option>
+              <option value="UI">UI</option>
+              <option value="UX">UX</option>
               <option value="Feature">Feature</option>
               <option value="Bug">Bug</option>
               <option value="Enhancement">Enhancement</option>
