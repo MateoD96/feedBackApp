@@ -142,7 +142,40 @@ export async function getSuggestion(idDoc) {
   try {
     const refD = doc(db, "suggestions", idDoc);
     const res = await getDoc(refD);
-    return res.data();
+    return {
+      idDoc: res.id,
+      ...res.data(),
+    };
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+//Subcollection comments
+export async function insertComment(comment, idSuggestion) {
+  try {
+    const suggestionsRef = collection(db, "suggestions");
+    const docRef = doc(suggestionsRef, idSuggestion);
+    const commentsRef = collection(docRef, "comments");
+    const res = await addDoc(commentsRef, comment);
+    return res.id ? res.id : null;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getComments(idSuggestion) {
+  const dat = [];
+  try {
+    const suggestionsRef = collection(db, "suggestions");
+    const docRef = doc(suggestionsRef, idSuggestion);
+    const commentsRef = collection(docRef, "comments");
+    const querySnapshot = await getDocs(commentsRef);
+    querySnapshot.forEach((doc) => {
+      const obj = { ...doc.data(), idDoc: doc.id };
+      dat.push(obj);
+    });
+    return dat;
   } catch (err) {
     console.error(err);
   }
