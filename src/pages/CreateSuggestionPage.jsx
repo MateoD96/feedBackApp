@@ -1,20 +1,15 @@
 import useAuth from "../hooks/useAuth";
 import { SuggestionsProvider } from "../context/SuggestionsContext";
 import { CreateSuggestion } from "../components";
-import { Navigate } from "react-router";
 
 export function CreateSuggestionPage() {
-  const { userAuth, stateAuth } = useAuth();
+  const { userAuth } = useAuth({
+    other: "/feedback/create",
+    register: "/register",
+    login: "/",
+  });
 
-  if (stateAuth === 3) {
-    return <Navigate to={"/"} />;
-  }
-
-  if (stateAuth === 4) {
-    return <Navigate to={"/register"} />;
-  }
-
-  if (stateAuth === 2) {
+  if (userAuth) {
     return (
       <SuggestionsProvider>
         <CreateSuggestion userAuth={userAuth} />

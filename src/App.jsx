@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   LoginRegister,
   RegisterPage,
-  FeedbackPage,
   BoardPage,
   CreateSuggestionPage,
-  SuggestionPage,
+  FeedbackPage,
 } from "./pages";
+import FeedbackProvider from "./context/FeedbackContext";
 
 function App() {
   return (
@@ -16,12 +16,15 @@ function App() {
       <Routes>
         <Route index element={<LoginRegister />} />
         <Route path="/register" element={<RegisterPage />} />
-        {/*  <Route path="/feedback/all" element={<FeedbackPage />} /> */}
         <Route path="/feedback/:board" element={<BoardPage />} />
         <Route path="/feedback/create" element={<CreateSuggestionPage />} />
         <Route
           path="/feedback/suggestion/:suggestion"
-          element={<SuggestionPage />}
+          element={
+            <FeedbackProvider>
+              <FeedbackPage />
+            </FeedbackProvider>
+          }
         />
       </Routes>
     </Router>

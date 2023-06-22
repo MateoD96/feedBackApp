@@ -1,23 +1,20 @@
 import useAuth from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
 import { Board } from "../components";
 import { SuggestionsProvider } from "../context/SuggestionsContext";
+import { useParams } from "react-router-dom";
 
 export function BoardPage() {
-  const { userAuth, stateAuth } = useAuth();
+  const { board } = useParams();
+  const { userAuth } = useAuth({
+    feedbacks: `/feedback/${board}`,
+    register: "/register",
+    login: "/",
+  });
 
-  if (stateAuth === 3) {
-    return <Navigate to={"/"} />;
-  }
-
-  if (stateAuth === 4) {
-    return <Navigate to={"/register"} />;
-  }
-
-  if (stateAuth === 2) {
+  if (board) {
     return (
       <SuggestionsProvider>
-        <Board userAuth={userAuth} />;
+        <Board userAuth={userAuth} board={board} />;
       </SuggestionsProvider>
     );
   }

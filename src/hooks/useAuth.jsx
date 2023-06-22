@@ -2,6 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { userExist } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 /* statesAuth:
   2: loged,
@@ -9,16 +10,19 @@ import { userExist } from "../firebase";
   4: complete register
 */
 
-function useAuth() {
+function useAuth(paths) {
   const [userAuth, setUserAuth] = useState(null);
-  const [stateAuth, setStateAuth] = useState(0);
+  const navigate = useNavigate();
+  const { feedbacks, register, login, other } = paths;
 
   const observerAuth = async (user) => {
     if (user) {
       setUserAuth(user);
-      (await userExist(user.uid)) ? setStateAuth(2) : setStateAuth(4);
+      (await userExist(user.uid))
+        ? navigate(feedbacks || other)
+        : navigate(register);
     } else {
-      setStateAuth(3);
+      navigate(login);
     }
   };
 
@@ -28,7 +32,6 @@ function useAuth() {
 
   return {
     userAuth,
-    stateAuth,
   };
 }
 

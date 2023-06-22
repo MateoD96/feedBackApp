@@ -1,26 +1,28 @@
-import { Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { Board } from "../components";
-import { SuggestionsProvider } from "../context/SuggestionsContext";
+import { useContext, useEffect } from "react";
+import { Feedback } from "../components/index";
+import FeedbackProvider, { ContextFeedback } from "../context/FeedbackContext";
 
 export function FeedbackPage() {
-  const { userAuth, stateAuth } = useAuth();
+  const { suggestion } = useParams();
+  const { getFeedback, feedback } = useContext(ContextFeedback);
+  const { userAuth } = useAuth({
+    feedbacks: `/feedback/suggestion/${suggestion}`,
+    register: "/register",
+    login: "/",
+  });
 
-  if (stateAuth === 3) {
-    return <Navigate to={"/"} />;
-  }
+  useEffect(() => {
+    getFeedback(suggestion);
+  }, [suggestion]);
 
-  if (stateAuth === 4) {
-    return <Navigate to={"/register"} />;
-  }
-
-  if (stateAuth === 2) {
+  if (feedback) {
     return (
-      <SuggestionsProvider>
-        <Board userAuth={userAuth} />;
-      </SuggestionsProvider>
+      <FeedbackProvider>
+        <Feedback userAuth={userAuth} feedback={feedback} />;
+      </FeedbackProvider>
     );
   }
-
-  return <div>Cargando...</div>;
+  return <h3>Cargando...</h3>;
 }

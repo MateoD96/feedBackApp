@@ -180,3 +180,18 @@ export async function getComments(idSuggestion) {
     console.error(err);
   }
 }
+
+//Sub collection answer
+export async function insertRespComment(resp, idComment, idSuggestion) {
+  try {
+    const suggestionsRef = collection(db, "suggestions");
+    const docRef = doc(suggestionsRef, idSuggestion);
+    const commentsRef = collection(docRef, "comments");
+    const docAnswer = doc(commentsRef, idComment);
+    const answerRef = collection(docAnswer, "answer");
+    const res = await addDoc(answerRef, resp);
+    return res.id ? res.id : null;
+  } catch (err) {
+    console.error(err);
+  }
+}

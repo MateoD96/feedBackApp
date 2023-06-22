@@ -34,8 +34,55 @@ a {
   padding: 0.5rem 1rem;
 }
 
+.inpTxt {
+  position: relative;
+  margin: 1rem 0;
+}
+
 .inpTxt textarea {
-  background-color: #fff;
+  background-color: #f7f8fd;
   margin-top: 1rem;
   padding: 0.5rem;
+  height: 10vh;
+}
+
+.error {
+  color: rgb(209, 69, 69);
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  position: absolute;
+  top: 1;
+}
+
+.btnComment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.btnComment input {
+  background-color: #ae1feb;
+  border: none;
+  border-radius: 0.6rem;
+  color: #fff;
+  padding: 0.7rem;
+  cursor: pointer;
+}
+
+.btnComment p {
+  color: #99a2ba;
+  font-size: 0.8rem;
+}
+
+.contInsert {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.title {
+  color: #454d7b;
+  font-size: 1rem;
+  margin: 0;
 }

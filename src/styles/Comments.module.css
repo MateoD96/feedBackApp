@@ -1,0 +1,55 @@
+.contCom {
+  background-color: #fff;
+  padding: 0rem 2rem 2rem;
+}
+
+.title {
+  margin: 0;
+  padding: 1rem 0;
+  color: #7a7fa1;
+}
+
+.comment {
+  margin: 2rem 0;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnReply button {
+  border: none;
+  color: #4b65e7;
+  cursor: pointer;
+}
+
+/* RESPUESTAS */
+
+.btnsResp {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.btnResp input {
+  padding: 0.2rem;
+  border-radius: 0.3rem;
+  border: none;
+  background-color: #ae1feb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btnCancel {
+  margin: 0 0.3rem;
+}
+
+.btnCancel button {
+  border: none;
+  background-color: #4b65e7;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
