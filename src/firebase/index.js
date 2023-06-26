@@ -13,6 +13,7 @@ import {
   addDoc,
   limit,
   startAfter,
+  orderBy,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -90,23 +91,20 @@ export async function createSuggestion(data) {
   }
 }
 
+let lastVisible = null;
 export function getSuggestions() {
   const refColl = collection(db, "suggestions");
-  let lastVisible;
 
   const getAllSuggestions = async () => {
-    const q = query(refColl, limit(5));
+    const q = query(refColl, orderBy("title"), limit(5));
     const querySnapshot = await getDocs(q);
-    //referecnia al ultimo elemento de la consulta
-    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
     const data = await printData(querySnapshot);
     return data;
   };
 
   const getFilterSuggestions = async (filter) => {
-    const q = query(refColl, where("categorie", "==", filter), limit(10));
+    const q = query(refColl, where("categorie", "==", filter), limit(5));
     const querySnapshot = await getDocs(q);
-    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
     const data = await printData(querySnapshot);
     return data;
   };
@@ -118,17 +116,37 @@ export function getSuggestions() {
         const newObj = { ...objDat.data(), idDoc: objDat.id };
         data.push(newObj);
       });
+      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
       return data;
     } catch (err) {
       console.error(err);
     }
   };
 
-  const getNext = async () => {
-    const nextDat = query(refColl, startAfter(lastVisible), limit(10));
-    const querySnapshot = await getDocs(nextDat);
-    const data = await printData(querySnapshot);
-    return data;
+  const getNext = async (filter) => {
+    if (lastVisible) {
+      if (filter === "all") {
+        const nextDatAll = query(
+          refColl,
+          orderBy("title"),
+          startAfter(lastVisible),
+          limit(5)
+        );
+        const querySnapshot = await getDocs(nextDatAll);
+        const data = await printData(querySnapshot);
+        return data;
+      }
+      const nextDatFilter = query(
+        refColl,
+        where("categorie", "==", filter),
+        orderBy("title"),
+        startAfter(lastVisible),
+        limit(5)
+      );
+      const qs = await getDocs(nextDatFilter);
+      const dat = await printData(qs);
+      return dat;
+    }
   };
 
   return {

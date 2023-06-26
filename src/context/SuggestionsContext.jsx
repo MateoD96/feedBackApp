@@ -6,7 +6,6 @@ const ContextSuggestions = createContext();
 const SuggestionsProvider = ({ children }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const { getAllSuggestions, getFilterSuggestions, getNext } = getSuggestions();
 
   const printData = (data) => {
@@ -28,8 +27,17 @@ const SuggestionsProvider = ({ children }) => {
     setLoading(false);
   };
 
+  const getNextSuggestions = async (filter) => {
+    const res = await getNext(filter);
+    if (res) {
+      setSuggestions([...suggestions, ...res]);
+    }
+  };
+
   const data = {
     fnGetSuggestions,
+    setSuggestions,
+    getNextSuggestions,
     suggestions,
     loading,
   };
