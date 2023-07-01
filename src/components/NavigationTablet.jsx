@@ -1,7 +1,7 @@
 import styles from "../styles/Navigations.module.css";
 import { NavLink } from "react-router-dom";
 
-export function NavigationTablet({ boards }) {
+export default function NavigationTablet({ boards }) {
   return (
     <div className={styles.contMenuT}>
       <div className={styles.containerTable}>

@@ -1,9 +1,9 @@
-import { FormLoginRegister } from "./FormLoginRegister";
+import FormLoginRegister from "./FormLoginRegister";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-export function Login() {
+export default function Login() {
   const navigate = useNavigate();
 
   const fnLogin = async ({ email, password }) => {

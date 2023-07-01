@@ -4,7 +4,7 @@ import useForm from "../hooks/useForm";
 const initialForm = {
   content: "",
 };
-export function Answer({ resp, setResp }) {
+export default function Answer({ resp, setResp }) {
   const {
     userCom: { email },
   } = resp;

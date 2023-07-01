@@ -1,10 +1,11 @@
 import styles from "../styles/BannerFeedbacks.module.css";
-import { OrderSuggestions, BtnAddFeedback } from "./index";
+import OrderSuggestions from "../components/OrderSuggestions";
+import BtnAddFeedback from "../components/BtnAddFeedback";
 import { HiLightBulb } from "react-icons/hi";
 import { useContext } from "react";
 import ContextSuggestions from "../context/SuggestionsContext";
 
-export function BannerFeedbacks() {
+export default function BannerFeedbacks() {
   const { suggestions } = useContext(ContextSuggestions);
 
   return (

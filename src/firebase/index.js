@@ -49,7 +49,6 @@ export async function existsUsername(username) {
     querySnapshot.forEach((doc) => {
       users.push(doc.data());
     });
-
     return users.length > 0 ? users[0].uid : null;
   } catch (err) {
     console.error(err);
@@ -81,6 +80,8 @@ export async function getData(coll) {
   }
 }
 
+/* //////////// SUGGESTION FUNCTIONS /////////////////// */
+
 export async function createSuggestion(data) {
   try {
     const collRef = collection(db, "suggestions");
@@ -92,6 +93,22 @@ export async function createSuggestion(data) {
 }
 
 let lastVisible = null;
+async function printData(querySnapshot) {
+  const data = [];
+  try {
+    querySnapshot.forEach((objDat) => {
+      const newObj = { ...objDat.data(), idDoc: objDat.id };
+      data.push(newObj);
+    });
+    if (querySnapshot.size !== 0) {
+      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    }
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export function getSuggestions() {
   const refColl = collection(db, "suggestions");
 
@@ -107,20 +124,6 @@ export function getSuggestions() {
     const querySnapshot = await getDocs(q);
     const data = await printData(querySnapshot);
     return data;
-  };
-
-  const printData = async (querySnapshot) => {
-    const data = [];
-    try {
-      querySnapshot.forEach((objDat) => {
-        const newObj = { ...objDat.data(), idDoc: objDat.id };
-        data.push(newObj);
-      });
-      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const getNext = async (filter) => {
@@ -139,7 +142,7 @@ export function getSuggestions() {
       const nextDatFilter = query(
         refColl,
         where("categorie", "==", filter),
-        orderBy("title"),
+        /* orderBy("title"), */
         startAfter(lastVisible),
         limit(5)
       );
@@ -169,6 +172,8 @@ export async function getSuggestion(idDoc) {
   }
 }
 
+/* //////////////////////// COMMENTS FUNCTIONS  /////////////////////////////////////// */
+
 //Subcollection comments
 export async function insertComment(comment, idSuggestion) {
   try {
@@ -183,21 +188,33 @@ export async function insertComment(comment, idSuggestion) {
 }
 
 export async function getComments(idSuggestion) {
-  const dat = [];
+  const suggestionsRef = collection(db, "suggestions");
+  const docRef = doc(suggestionsRef, idSuggestion);
+  const commentsRef = collection(docRef, "comments");
   try {
-    const suggestionsRef = collection(db, "suggestions");
-    const docRef = doc(suggestionsRef, idSuggestion);
-    const commentsRef = collection(docRef, "comments");
-    const querySnapshot = await getDocs(commentsRef);
-    querySnapshot.forEach((doc) => {
-      const obj = { ...doc.data(), idDoc: doc.id };
-      dat.push(obj);
-    });
+    const qry = query(commentsRef, limit(3));
+    const querySnapshot = await getDocs(qry);
+    const dat = await printData(querySnapshot);
     return dat;
   } catch (err) {
     console.error(err);
   }
 }
+
+export async function getNextComments(idSuggestion) {
+  const suggestionsRef = collection(db, "suggestions");
+  const docRef = doc(suggestionsRef, idSuggestion);
+  const commentsRef = collection(docRef, "comments");
+  try {
+    const qry = query(commentsRef, limit(3), startAfter(lastVisible));
+    const querySnapshot = await getDocs(qry);
+    return await printData(querySnapshot);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+/* //////////// ANSWER FUNCTIONS ////////////// */
 
 //Sub collection answer
 export async function insertRespComment(resp, idComment, idSuggestion) {

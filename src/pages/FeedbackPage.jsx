@@ -1,28 +1,22 @@
 import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { useContext, useEffect } from "react";
-import { Feedback } from "../components/index";
-import FeedbackProvider, { ContextFeedback } from "../context/FeedbackContext";
+import Feedback from "../components/Feedback";
+import useGetData from "../hooks/useGetData";
+import { getSuggestion } from "../firebase";
 
-export function FeedbackPage() {
+function FeedbackPage() {
   const { suggestion } = useParams();
-  const { getFeedback, feedback } = useContext(ContextFeedback);
+  const [feedback, loading] = useGetData(suggestion, getSuggestion);
   const { userAuth } = useAuth({
     feedbacks: `/feedback/suggestion/${suggestion}`,
     register: "/register",
     login: "/",
   });
 
-  useEffect(() => {
-    getFeedback(suggestion);
-  }, [suggestion]);
-
   if (feedback) {
-    return (
-      <FeedbackProvider>
-        <Feedback userAuth={userAuth} feedback={feedback} />;
-      </FeedbackProvider>
-    );
+    return <Feedback userAuth={userAuth} feedback={feedback} />;
   }
   return <h3>Cargando...</h3>;
 }
+
+export default FeedbackPage;

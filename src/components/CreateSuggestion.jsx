@@ -1,12 +1,12 @@
 import styles from "../styles/FormSuggestions.module.css";
 import { ToastContainer, toast } from "react-toastify";
-import { FormSuggestions } from "./index";
+import FormSuggestions from "./FormSuggestions";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 import { createSuggestion } from "../firebase";
 
-export function CreateSuggestion({ userAuth }) {
+export default function CreateSuggestion({ userAuth }) {
   const createNewSuggestion = async (data) => {
     const newSugg = {
       id: uuidv4(),

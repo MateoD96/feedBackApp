@@ -1,6 +1,6 @@
 import styles from "../styles/BannerFeedbacks.module.css";
 
-export function OrderSuggestions() {
+export default function OrderSuggestions() {
   return (
     <div className={styles.order}>
       <span>Sort By :</span>

@@ -2,7 +2,7 @@ import styles from "../styles/Navigations.module.css";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
 
-export function MenuMobile({ open, fnClose, boards }) {
+export default function MenuMobile({ open, fnClose, boards }) {
   return (
     <div
       className={

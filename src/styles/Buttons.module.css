@@ -1,0 +1,9 @@
+/* see more button  */
+
+.seeMore {
+  border: none;
+  padding: 0.3rem 1rem;
+  background-color: #ae1feb;
+  color: #fff;
+  cursor: pointer;
+}

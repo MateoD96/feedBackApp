@@ -1,7 +1,7 @@
-import { CompleteRegister } from "../components/CompleteRegister";
+import CompleteRegister from "../components/CompleteRegister";
 import useAuth from "../hooks/useAuth";
 
-export function RegisterPage() {
+function RegisterPage() {
   const { userAuth } = useAuth({
     feedbacks: "/feedback/all",
     register: "/register",
@@ -9,3 +9,5 @@ export function RegisterPage() {
   });
   return <CompleteRegister userAuth={userAuth} />;
 }
+
+export default RegisterPage;

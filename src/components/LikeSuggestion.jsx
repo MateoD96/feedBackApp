@@ -1,7 +1,7 @@
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import styles from "../styles/Suggestion.module.css";
 
-export function LikeSuggestion({ userAuth, likes }) {
+export default function LikeSuggestion({ userAuth, likes }) {
   return (
     <div className={styles.likes}>
       <div className={styles.btnLike}>

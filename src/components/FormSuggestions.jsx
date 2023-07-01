@@ -10,7 +10,7 @@ const initialForm = {
   categorie: "",
 };
 
-export function FormSuggestions({ datEdit = null, action }) {
+export default function FormSuggestions({ datEdit = null, action }) {
   const validate = (values) => {
     const errors = {};
     if (!values.title) {

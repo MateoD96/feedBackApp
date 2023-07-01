@@ -1,9 +1,9 @@
 import styles from "../styles/Navigations.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import useActive from "../hooks/useActive";
-import { MenuMobile } from "./index";
+import MenuMobile from "./MenuMobile";
 
-export function NavigationMobile({ boards }) {
+export default function NavigationMobile({ boards }) {
   const { fnOpen, fnClose, open } = useActive();
 
   return (

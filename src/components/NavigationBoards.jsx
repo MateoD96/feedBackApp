@@ -1,6 +1,7 @@
-import { NavigationMobile, NavigationTablet } from "./index";
+import NavigationMobile from "./NavigationMobile";
+import NavigationTablet from "./NavigationTablet";
 
-export function NavigationBoards({ boards }) {
+export default function NavigationBoards({ boards }) {
   return (
     <>
       <NavigationMobile boards={boards} />

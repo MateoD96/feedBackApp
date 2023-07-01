@@ -1,5 +1,6 @@
 import useFetchFirestore from "../hooks/useFetchFirestore";
-import { BannerFeedbacks, NavigationBoards } from "../components";
+import BannerFeedbacks from "../components/BannerFeedbacks";
+import NavigationBoards from "../components/NavigationBoards";
 import styles from "../styles/LayoutBoards.module.css";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";

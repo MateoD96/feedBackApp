@@ -1,14 +1,14 @@
 import styles from "../styles/Suggestion.module.css";
 import LayoutBoards from "../layout/LayoutBoards";
 import useSuggestions from "../hooks/useSuggestions";
-import { Suggestion } from "./index";
+import Suggestion from "../components/Suggestion";
+import BtnSeeMore from "../components/BtnSeeMore";
+import { useParams } from "react-router-dom";
 
-export function Board({ userAuth, board }) {
-  const { suggestions, getNextSuggestions, loading } = useSuggestions(board);
-
-  const seeMore = () => {
-    getNextSuggestions(board);
-  };
+export default function Board({ userAuth }) {
+  const { board } = useParams();
+  const { seeMore, suggestions, loading, loadingSeeMore } =
+    useSuggestions(board);
 
   return (
     <LayoutBoards>
@@ -25,11 +25,20 @@ export function Board({ userAuth, board }) {
           )}
         </div>
       )}
-      {suggestions.length > 4 ? (
-        <button onClick={seeMore}>See More</button>
+      {suggestions && suggestions.length > 4 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <BtnSeeMore seeMore={seeMore} />
+        </div>
       ) : (
         ""
       )}
+      {loadingSeeMore && <h3>Cargando...</h3>}
     </LayoutBoards>
   );
 }

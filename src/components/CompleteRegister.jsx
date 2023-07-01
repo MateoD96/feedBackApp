@@ -4,7 +4,7 @@ import styles from "../styles/Auth.module.css";
 import { registerNewUser } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-export function CompleteRegister({ userAuth }) {
+export default function CompleteRegister({ userAuth }) {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(null);
   const [messageExistUsername, setMessage] = useState(null);

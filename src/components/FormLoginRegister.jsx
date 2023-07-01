@@ -6,7 +6,7 @@ const initialForm = {
   email: "",
   password: "",
 };
-export function FormLoginRegister({ action }) {
+export default function FormLoginRegister({ action }) {
   const { fnAction, actionStr } = action;
 
   const isPasswordValid = (password) => {

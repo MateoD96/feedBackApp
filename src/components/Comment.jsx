@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styles from "../styles/Comments.module.css";
-import { Answer } from "./index";
+import Answer from "./Answer";
 
-export function Comment({ comment }) {
+export default function Comment({ comment }) {
   const {
     content,
     userCom: { email },

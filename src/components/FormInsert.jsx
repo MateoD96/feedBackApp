@@ -5,7 +5,7 @@ const initialForm = {
   comment: "",
 };
 
-export function FormInsert({ insertCom }) {
+export default function FormInsert({ insertCom }) {
   const validate = (values) => {
     const errors = {};
     if (values.comment === "") {
