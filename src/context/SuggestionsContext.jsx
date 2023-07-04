@@ -7,7 +7,14 @@ const SuggestionsProvider = ({ children }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingSeeMore, setLoadingSeeMore] = useState(false);
-  const { getAllSuggestions, getFilterSuggestions, getNext } = getSuggestions();
+  const [count, setCount] = useState(null);
+  const {
+    getAllSuggestions,
+    getFilterSuggestions,
+    getNext,
+    getCountAll,
+    getCountFilter,
+  } = getSuggestions();
 
   const printData = (data) => {
     if (data) {
@@ -36,10 +43,22 @@ const SuggestionsProvider = ({ children }) => {
     }
   };
 
+  const getCount = async (filter) => {
+    if (filter !== "all") {
+      const countSugg = await getCountFilter(filter);
+      if (countSugg) setCount(countSugg);
+      return;
+    }
+    const countAll = await getCountAll();
+    if (countAll) setCount(countAll);
+  };
+
   const data = {
     fnGetSuggestions,
     setSuggestions,
     getNextSuggestions,
+    getCount,
+    count,
     suggestions,
     loading,
     loadingSeeMore,

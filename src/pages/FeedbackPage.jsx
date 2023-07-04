@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import Feedback from "../components/Feedback";
 import useGetData from "../hooks/useGetData";
 import { getSuggestion } from "../firebase";
+import ProviderComments from "../context/CommentsContext";
 
 function FeedbackPage() {
   const { suggestion } = useParams();
@@ -14,7 +15,11 @@ function FeedbackPage() {
   });
 
   if (feedback) {
-    return <Feedback userAuth={userAuth} feedback={feedback} />;
+    return (
+      <ProviderComments userAuth={userAuth} feedback={feedback}>
+        <Feedback userAuth={userAuth} feedback={feedback} />;
+      </ProviderComments>
+    );
   }
   return <h3>Cargando...</h3>;
 }

@@ -1,11 +1,12 @@
 import styles from "../styles/SuggestionPage.module.css";
 import { Link } from "react-router-dom";
-export default function HeaderFeedback({ categorieFeed, userInfo, userAuth }) {
+export default function HeaderFeedback({ userAuth, feedback }) {
+  const { userInfo, categorie } = feedback;
   return (
     <div>
       <div className={styles.header}>
         <div className={styles.back}>
-          <Link to={`/feedback/${categorieFeed}`}>Go Back</Link>
+          <Link to={`/feedback/${categorie}`}>Go Back</Link>
         </div>
         {userInfo && userInfo.idUser === userAuth.uid ? (
           <div className={styles.btnEdit}>

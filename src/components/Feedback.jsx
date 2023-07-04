@@ -3,26 +3,17 @@ import Suggestion from "./Suggestion";
 import Comments from "./Comments";
 import FormInsert from "./FormInsert";
 import HeaderFeedback from "./HeaderFeedback";
-import useComments from "../hooks/useComments";
+import { useContext } from "react";
+import { ContextComments } from "../context/CommentsContext";
 
 export default function Feedback({ userAuth, feedback }) {
-  const { comments, insertComments, getNextComms, loading, loadingNext } =
-    useComments(feedback, userAuth);
-  const { userInfo, categorie } = feedback;
+  const { insertComments } = useContext(ContextComments);
 
   return (
     <div className={styles.layout}>
-      <HeaderFeedback
-        categorieFeed={categorie}
-        userInfo={userInfo}
-        userAuth={userAuth}
-      />
+      <HeaderFeedback userAuth={userAuth} feedback={feedback} />
       <Suggestion suggestion={feedback} userAuth={userAuth} />
-      <Comments
-        comments={comments}
-        seeMore={getNextComms}
-        loadingNext={loadingNext}
-      />
+      <Comments userAuth={userAuth} feedback={feedback} />
       <FormInsert insertCom={insertComments} />
     </div>
   );

@@ -11,7 +11,7 @@ export default function Board({ userAuth }) {
     useSuggestions(board);
 
   return (
-    <LayoutBoards>
+    <LayoutBoards board={board}>
       {loading ? (
         <h3 className={styles.loader}>Cargando...</h3>
       ) : (

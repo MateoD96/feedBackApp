@@ -1,13 +1,13 @@
-import useFetchFirestore from "../hooks/useFetchFirestore";
+import useGetData from "../hooks/useGetData";
 import BannerFeedbacks from "../components/BannerFeedbacks";
 import NavigationBoards from "../components/NavigationBoards";
 import styles from "../styles/LayoutBoards.module.css";
-import { auth } from "../firebase";
+import { auth, getData } from "../firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-function LayoutBoards({ children }) {
-  const { data, loading } = useFetchFirestore("boards");
+function LayoutBoards({ children, board }) {
+  const [data, loading] = useGetData("boards", getData);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -28,7 +28,7 @@ function LayoutBoards({ children }) {
         </button>
         <NavigationBoards boards={data} />
         <div>
-          <BannerFeedbacks />
+          <BannerFeedbacks board={board} />
           {children}
         </div>
       </div>

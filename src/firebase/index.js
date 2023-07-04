@@ -14,6 +14,7 @@ import {
   limit,
   startAfter,
   orderBy,
+  getCountFromServer,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -119,11 +120,22 @@ export function getSuggestions() {
     return data;
   };
 
+  const getCountAll = async () => {
+    const snapShot = await getCountFromServer(refColl);
+    return snapShot.data().count;
+  };
+
   const getFilterSuggestions = async (filter) => {
     const q = query(refColl, where("categorie", "==", filter), limit(5));
     const querySnapshot = await getDocs(q);
     const data = await printData(querySnapshot);
     return data;
+  };
+
+  const getCountFilter = async (filter) => {
+    const q = query(refColl, where("categorie", "==", filter));
+    const snapShot = await getCountFromServer(q);
+    return snapShot.data().count;
   };
 
   const getNext = async (filter) => {
@@ -156,6 +168,8 @@ export function getSuggestions() {
     getAllSuggestions,
     getFilterSuggestions,
     getNext,
+    getCountAll,
+    getCountFilter,
   };
 }
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import LikeSuggestion from "./LikeSuggestion";
 
 export default function Suggestion({ suggestion, userAuth }) {
-  /* const { comments, loading } = useComments(suggestion, userAuth); */
   const { title, description, categorie, idDoc } = suggestion;
 
   return (
@@ -15,7 +14,6 @@ export default function Suggestion({ suggestion, userAuth }) {
       </div>
       <div className={styles.commentsLikes}>
         <div className={styles.comments}></div>
-        {/*  <p>{comments && comments.length}</p> */}
         <LikeSuggestion userAuth={userAuth} />
         <Link to={`/feedback/suggestion/${idDoc}`}>View</Link>
       </div>
