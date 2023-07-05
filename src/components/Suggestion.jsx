@@ -1,9 +1,24 @@
 import styles from "../styles/Suggestion.module.css";
 import { Link } from "react-router-dom";
 import LikeSuggestion from "./LikeSuggestion";
+import { useEffect, useState } from "react";
+import { getCountComments } from "../firebase";
 
-export default function Suggestion({ suggestion, userAuth }) {
+export default function Suggestion({ suggestion, userAuth, count = false }) {
   const { title, description, categorie, idDoc } = suggestion;
+  const [countComms, setCountComms] = useState(null);
+
+  useEffect(() => {
+    const getCountComms = async () => {
+      if (idDoc) {
+        const comms = await getCountComments(idDoc);
+        comms && setCountComms(comms);
+      }
+    };
+    if (count) {
+      getCountComms();
+    }
+  }, [count]);
 
   return (
     <div className={styles.container}>
@@ -13,7 +28,9 @@ export default function Suggestion({ suggestion, userAuth }) {
         <Link to={`/feedback/${categorie}`}>{categorie}</Link>
       </div>
       <div className={styles.commentsLikes}>
-        <div className={styles.comments}></div>
+        <div className={styles.comments}>
+          {(countComms && countComms) || ""}
+        </div>
         <LikeSuggestion userAuth={userAuth} />
         <Link to={`/feedback/suggestion/${idDoc}`}>View</Link>
       </div>

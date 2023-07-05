@@ -120,6 +120,7 @@ export function getSuggestions() {
     return data;
   };
 
+  //consultas de agregación firestore
   const getCountAll = async () => {
     const snapShot = await getCountFromServer(refColl);
     return snapShot.data().count;
@@ -210,6 +211,18 @@ export async function getComments(idSuggestion) {
     const querySnapshot = await getDocs(qry);
     const dat = await printData(querySnapshot);
     return dat;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getCountComments(idSuggestion) {
+  try {
+    const refColl = collection(db, "suggestions");
+    const refDoc = doc(refColl, idSuggestion);
+    const refCollComms = collection(refDoc, "comments");
+    const snapshot = await getCountFromServer(refCollComms);
+    return snapshot.data().count;
   } catch (err) {
     console.error(err);
   }

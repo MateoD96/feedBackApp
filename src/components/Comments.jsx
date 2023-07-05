@@ -6,11 +6,13 @@ import { useContext } from "react";
 import { ContextComments } from "../context/CommentsContext";
 
 export default function Comments({ userAuth, feedback }) {
-  const { comments, loading } = useComments(feedback, userAuth);
+  const { comments, loading, count } = useComments(feedback, userAuth);
   const { loadingNext, getNextComms } = useContext(ContextComments);
   return (
     <div className={styles.contCom}>
-      {comments && <h3 className={styles.title}>{comments.length} Comments</h3>}
+      {comments && (
+        <h3 className={styles.title}>{(count && count) || 0} Comments</h3>
+      )}
       <div>
         {comments &&
           comments.map((com) => <Comment key={com.idDoc} comment={com} />)}

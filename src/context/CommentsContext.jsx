@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getComments, insertComment, getNextComments } from "../firebase";
+import { insertComment, getNextComments } from "../firebase";
 
 const ContextComments = createContext();
 

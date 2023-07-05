@@ -17,8 +17,13 @@ export default function Board({ userAuth }) {
       ) : (
         <div className={styles.layout}>
           {suggestions && suggestions.length > 0 ? (
-            suggestions.map((s) => (
-              <Suggestion key={s.idDoc} suggestion={s} userAuth={userAuth} />
+            suggestions.map((sugg) => (
+              <Suggestion
+                key={sugg.idDoc}
+                suggestion={sugg}
+                userAuth={userAuth}
+                count={true}
+              />
             ))
           ) : (
             <h3>No hay Sugerencias por mostrar</h3>
