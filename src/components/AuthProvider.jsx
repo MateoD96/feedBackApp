@@ -5,6 +5,7 @@ import { userExist } from "../firebase";
 
 export default function AuthProvider({ authActions }) {
   const { isLogged, notLogged, pendingRegister } = authActions;
+
   const observerAuth = async (user) => {
     if (user) {
       (await userExist(user.uid)) ? isLogged(user) : pendingRegister(user);

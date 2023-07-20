@@ -11,6 +11,8 @@
 
 .comment {
   margin: 2rem 0;
+  padding-bottom: 2rem;
+  border-bottom: #d0d3e0 solid 0.5px;
 }
 
 .info {
@@ -18,10 +20,18 @@
   justify-content: space-between;
 }
 
+.btnReply {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .btnReply button {
+  order: 1;
   border: none;
   color: #4b65e7;
   cursor: pointer;
+  margin-left: 0.2rem;
 }
 
 /* RESPUESTAS */
@@ -52,4 +62,42 @@
   color: #fff;
   cursor: pointer;
   border-radius: 0.3rem;
+}
+
+.cont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.contTxt {
+  position: relative;
+  width: 80%;
+}
+
+.contTxt textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: solid 1px #4b65e7;
+  outline-color: #ae1feb;
+  resize: none;
+}
+
+.errorValidate {
+  position: absolute;
+  top: 3.3rem;
+  left: 0;
+  font-size: 0.7rem;
+  text-align: right;
+  color: red;
+}
+
+.btnViewAnswers {
+  padding: 0.3rem 0;
+  color: salmon;
+  fontsize: 0.8rem;
+  cursor: pointer;
+  border: none;
+  background: none;
 }

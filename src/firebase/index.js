@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 import {
   doc,
   getDoc,
@@ -15,6 +15,7 @@ import {
   startAfter,
   orderBy,
   getCountFromServer,
+  deleteDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -27,9 +28,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 export const auth = getAuth();
 const storage = getStorage(app);
+
+//TODO: Modularizar y refactorizaar codigo
 
 export async function userExist(userId) {
   try {
@@ -241,18 +244,14 @@ export async function getNextComments(idSuggestion) {
   }
 }
 
-/* //////////// ANSWER FUNCTIONS ////////////// */
-
-//Sub collection answer
-export async function insertRespComment(resp, idComment, idSuggestion) {
+export async function deleteComment(idFeedback, idDoc) {
   try {
-    const suggestionsRef = collection(db, "suggestions");
-    const docRef = doc(suggestionsRef, idSuggestion);
-    const commentsRef = collection(docRef, "comments");
-    const docAnswer = doc(commentsRef, idComment);
-    const answerRef = collection(docAnswer, "answer");
-    const res = await addDoc(answerRef, resp);
-    return res.id ? res.id : null;
+    const refColl = collection(db, "suggestions");
+    const refDoc = doc(refColl, idFeedback);
+    const refCollComms = collection(refDoc, "comments");
+    const refDocComm = doc(refCollComms, idDoc);
+    const res = await deleteDoc(refDocComm);
+    return res;
   } catch (err) {
     console.error(err);
   }

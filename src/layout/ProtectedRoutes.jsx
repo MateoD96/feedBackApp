@@ -1,18 +1,9 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useContext } from "react";
-import { ContextAuth } from "../context/AuthContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { auth } from "../firebase";
 
-function ProtectedRoutes({ children, toRedirect = "/" }) {
-  const { userAuth } = useContext(ContextAuth);
-
-  if (!userAuth) {
-    return <Navigate to={toRedirect} />;
-  }
-  if (userAuth === "pendingRegister") {
-    return <Navigate to={"/register"} />;
-  }
-
-  return userAuth && userAuth !== "pendingRegister" ? children : <Outlet />;
-}
+function ProtectedRoutes() {}
 
 export default ProtectedRoutes;

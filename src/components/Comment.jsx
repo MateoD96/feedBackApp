@@ -1,30 +1,29 @@
 import { useState } from "react";
-import styles from "../styles/Comments.module.css";
-import Answer from "./Answer";
+import Reply from "./Reply";
+import useAnswers from "../hooks/useAnswers";
+import WrapperComment from "./WrapperComment";
+import Answers from "./Answers";
 
-export default function Comment({ comment }) {
-  const {
-    content,
-    userCom: { email },
-  } = comment;
+export default function Comment({ comment, deleteCom, userAuth }) {
   const [resp, setResp] = useState(null);
+  const [answers, countAnswers, insertAnswer, getAnswers, loadingAnswers] =
+    useAnswers(comment, userAuth);
 
-  const reply = () => {
-    setResp(comment);
-  };
+  const reply = () => setResp(comment);
+  const deleteComment = () => deleteCom(comment);
 
   return (
     <>
-      <div className={styles.comment}>
-        <div className={styles.info}>
-          <div className={styles.userInfo}>{email}</div>
-          <div className={styles.btnReply}>
-            <button onClick={reply}>Reply</button>
-          </div>
-        </div>
-        <div className={styles.content}>{content}</div>
-      </div>
-      {resp && <Answer resp={resp} setResp={setResp} />}
+      <WrapperComment
+        datosRest={[comment, userAuth, deleteComment, reply]}
+        countAnswers={countAnswers}
+        getAnswers={getAnswers}
+      >
+        <Answers answers={answers} loadingAnswers={loadingAnswers} />
+      </WrapperComment>
+      {resp && (
+        <Reply resp={resp} setResp={setResp} insertAnswer={insertAnswer} />
+      )}
     </>
   );
 }

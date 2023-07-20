@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
   3: notLoged,
   4: complete register
 */
-
 function useAuth(paths) {
   const [userAuth, setUserAuth] = useState(null);
   const navigate = useNavigate();

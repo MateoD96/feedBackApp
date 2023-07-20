@@ -8,6 +8,7 @@ import { ContextComments } from "../context/CommentsContext";
 
 export default function Feedback({ userAuth, feedback }) {
   const { insertComments } = useContext(ContextComments);
+
   return (
     <div className={styles.layout}>
       <HeaderFeedback userAuth={userAuth} feedback={feedback} />

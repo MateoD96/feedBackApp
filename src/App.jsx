@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 const LoginRegister = lazy(() => import("./pages/LoginRegisterPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const BoardPage = lazy(() => import("./pages/BoardPage"));

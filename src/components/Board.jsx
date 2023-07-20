@@ -1,8 +1,10 @@
 import styles from "../styles/Suggestion.module.css";
 import LayoutBoards from "../layout/LayoutBoards";
 import useSuggestions from "../hooks/useSuggestions";
-import Suggestion from "../components/Suggestion";
-import BtnSeeMore from "../components/BtnSeeMore";
+import Suggestion from "./Suggestion";
+import BtnSeeMore from "./BtnSeeMore";
+import LayoutLoading from "../layout/LayoutLoading";
+import LoadingSeeMore from "./LoadingSeemore";
 import { useParams } from "react-router-dom";
 
 export default function Board({ userAuth }) {
@@ -13,7 +15,9 @@ export default function Board({ userAuth }) {
   return (
     <LayoutBoards board={board}>
       {loading ? (
-        <h3 className={styles.loader}>Cargando...</h3>
+        <LayoutLoading>
+          <LoadingSeeMore />
+        </LayoutLoading>
       ) : (
         <div className={styles.layout}>
           {suggestions && suggestions.length > 0 ? (
@@ -31,19 +35,16 @@ export default function Board({ userAuth }) {
         </div>
       )}
       {suggestions && suggestions.length > 4 ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <BtnSeeMore seeMore={seeMore} />
-        </div>
+        <LayoutLoading>
+          {loadingSeeMore ? (
+            <LoadingSeeMore />
+          ) : (
+            <BtnSeeMore seeMore={seeMore} />
+          )}
+        </LayoutLoading>
       ) : (
         ""
       )}
-      {loadingSeeMore && <h3>Cargando...</h3>}
     </LayoutBoards>
   );
 }

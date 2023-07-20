@@ -17,7 +17,7 @@ function useGetData(options, actionCallback) {
       }
     };
     getDataFirestore();
-  }, [options]);
+  }, [options, actionCallback]);
 
   return [data, loading];
 }

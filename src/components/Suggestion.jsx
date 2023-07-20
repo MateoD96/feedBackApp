@@ -1,10 +1,10 @@
 import styles from "../styles/Suggestion.module.css";
 import { Link } from "react-router-dom";
 import LikeSuggestion from "./LikeSuggestion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { getCountComments } from "../firebase";
 
-export default function Suggestion({ suggestion, userAuth, count = false }) {
+function Suggestion({ suggestion, userAuth, count = false }) {
   const { title, description, categorie, idDoc } = suggestion;
   const [countComms, setCountComms] = useState(null);
 
@@ -19,6 +19,12 @@ export default function Suggestion({ suggestion, userAuth, count = false }) {
       getCountComms();
     }
   }, [count]);
+
+  useEffect(() => {
+    countComms
+      ? (suggestion.countComms = countComms)
+      : (suggestion.countComms = 0);
+  }, [countComms, count]);
 
   return (
     <div className={styles.container}>
@@ -37,3 +43,5 @@ export default function Suggestion({ suggestion, userAuth, count = false }) {
     </div>
   );
 }
+
+export default memo(Suggestion);

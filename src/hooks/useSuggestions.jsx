@@ -6,6 +6,7 @@ function useSuggestions(board) {
     fnGetSuggestions,
     getNextSuggestions,
     suggestions,
+    setSuggestions,
     loading,
     loadingSeeMore,
   } = useContext(ContextSuggestions);

@@ -37,10 +37,12 @@ const SuggestionsProvider = ({ children }) => {
   };
 
   const getNextSuggestions = async (filter) => {
+    setLoadingSeeMore(true);
     const res = await getNext(filter);
     if (res) {
       setSuggestions([...suggestions, ...res]);
     }
+    setLoadingSeeMore(false);
   };
 
   const getCount = async (filter) => {
@@ -53,11 +55,27 @@ const SuggestionsProvider = ({ children }) => {
     if (countAll) setCount(countAll);
   };
 
+  const orderSuggestions = (orderBy) => {
+    const order = () => {
+      const res = [...suggestions].sort((a, b) => {
+        if (a.countComms < b.countComms) return -1;
+        if (a.countComms > b.countComms) return 1;
+        return 0;
+      });
+      return res;
+    };
+
+    orderBy === "Less Comments"
+      ? setSuggestions(order())
+      : setSuggestions(order().reverse());
+  };
+
   const data = {
     fnGetSuggestions,
     setSuggestions,
     getNextSuggestions,
     getCount,
+    orderSuggestions,
     count,
     suggestions,
     loading,
