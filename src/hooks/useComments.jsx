@@ -6,14 +6,13 @@ import useGetData from "./useGetData";
 function useComments(feedback) {
   const { idDoc } = feedback;
   const [data, loading] = useGetData(idDoc, getComments);
-  const [count, setCount] = useState(null);
-  const { comments, setComments } = useContext(ContextComments);
+  const { comments, setComments, setCount, count } =
+    useContext(ContextComments);
 
   const deleteCom = async (comment) => {
     const { idFeedback, idDoc } = comment;
     await deleteComment(idFeedback, idDoc);
     setComments(() => comments.filter((comm) => comm.idDoc !== idDoc));
-    location.reload();
   };
 
   useEffect(() => setComments(data), [data]);
@@ -26,7 +25,7 @@ function useComments(feedback) {
     if (idDoc) {
       getCount();
     }
-  }, [idDoc]);
+  }, [comments]);
 
   return { comments, deleteCom, loading, count };
 }

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import Reply from "./Reply";
 import useAnswers from "../hooks/useAnswers";
 import WrapperComment from "./WrapperComment";
 import Answers from "./Answers";
 
-export default function Comment({ comment, deleteCom, userAuth }) {
+function Comment({ comment, deleteCom, userAuth }) {
   const [resp, setResp] = useState(null);
   const [answers, countAnswers, insertAnswer, getAnswers, loadingAnswers] =
     useAnswers(comment, userAuth);
@@ -15,7 +15,8 @@ export default function Comment({ comment, deleteCom, userAuth }) {
   return (
     <>
       <WrapperComment
-        datosRest={[comment, userAuth, deleteComment, reply]}
+        datosRest={[userAuth, deleteComment, reply]}
+        comment={comment}
         countAnswers={countAnswers}
         getAnswers={getAnswers}
       >
@@ -27,3 +28,5 @@ export default function Comment({ comment, deleteCom, userAuth }) {
     </>
   );
 }
+
+export default memo(Comment);

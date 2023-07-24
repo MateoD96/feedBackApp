@@ -9,6 +9,7 @@ function useSuggestions(board) {
     setSuggestions,
     loading,
     loadingSeeMore,
+    count,
   } = useContext(ContextSuggestions);
 
   const seeMore = () => {
@@ -24,6 +25,7 @@ function useSuggestions(board) {
     suggestions,
     loading,
     loadingSeeMore,
+    count,
   };
 }
 

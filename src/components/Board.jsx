@@ -6,10 +6,11 @@ import BtnSeeMore from "./BtnSeeMore";
 import LayoutLoading from "../layout/LayoutLoading";
 import LoadingSeeMore from "./LoadingSeemore";
 import { useParams } from "react-router-dom";
+import SeeMore from "./reuse/SeeMore";
 
 export default function Board({ userAuth }) {
   const { board } = useParams();
-  const { seeMore, suggestions, loading, loadingSeeMore } =
+  const { seeMore, suggestions, loading, loadingSeeMore, count } =
     useSuggestions(board);
 
   return (
@@ -34,17 +35,12 @@ export default function Board({ userAuth }) {
           )}
         </div>
       )}
-      {suggestions && suggestions.length > 4 ? (
-        <LayoutLoading>
-          {loadingSeeMore ? (
-            <LoadingSeeMore />
-          ) : (
-            <BtnSeeMore seeMore={seeMore} />
-          )}
-        </LayoutLoading>
-      ) : (
-        ""
-      )}
+      <SeeMore
+        loading={loadingSeeMore}
+        count={count}
+        data={suggestions}
+        fnSeemore={seeMore}
+      />
     </LayoutBoards>
   );
 }

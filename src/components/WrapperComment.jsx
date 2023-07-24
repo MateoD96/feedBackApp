@@ -2,10 +2,15 @@ import styles from "../styles/Comments.module.css";
 import { AiFillDelete } from "react-icons/ai";
 import BtnDeleteComments from "./BtnDeleteComments";
 
-function WrapperComment({ children, datosRest, countAnswers, getAnswers }) {
-  const [comment, userAuth, deleteComment, reply] = datosRest;
+function WrapperComment({
+  children,
+  comment,
+  datosRest,
+  countAnswers,
+  getAnswers,
+}) {
+  const [userAuth, deleteComment, reply] = datosRest;
   const {
-    idDoc,
     content,
     userCom: { email, uid },
   } = comment;

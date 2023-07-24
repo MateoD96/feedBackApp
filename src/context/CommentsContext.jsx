@@ -1,16 +1,18 @@
 import { createContext, useState } from "react";
 import { insertComment, getNextComments } from "../firebase";
+import { v4 as uuidV4 } from "uuid";
 
 const ContextComments = createContext();
 
 function ProviderComments({ children, userAuth, feedback }) {
   const { idDoc } = feedback;
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [count, setCount] = useState(null);
   const [loadingNext, setLoadingNext] = useState(false);
 
   const insertComments = async ({ comment }) => {
     const commentInsert = {
-      /*id*/
+      id: uuidV4(),
       userCom: {
         email: userAuth.email,
         uid: userAuth.uid,
@@ -20,7 +22,8 @@ function ProviderComments({ children, userAuth, feedback }) {
     };
     const resp = await insertComment(commentInsert, idDoc);
     if (resp) {
-      setComments([...comments, commentInsert]);
+      commentInsert.idDoc = resp;
+      setComments(() => [...comments, commentInsert]);
     }
   };
 
@@ -28,7 +31,7 @@ function ProviderComments({ children, userAuth, feedback }) {
     setLoadingNext(true);
     const comms = await getNextComments(idDoc);
     if (comms) {
-      setComments([...comments, ...comms]);
+      setComments(() => [...comments, ...comms]);
     }
     setLoadingNext(false);
   };
@@ -39,6 +42,8 @@ function ProviderComments({ children, userAuth, feedback }) {
     setComments,
     insertComments,
     getNextComms,
+    setCount,
+    count,
   };
 
   return (

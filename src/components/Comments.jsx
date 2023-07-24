@@ -1,46 +1,40 @@
 import styles from "../styles/Comments.module.css";
 import Comment from "./Comment";
-import BtnSeeMore from "./BtnSeeMore";
 import useComments from "../hooks/useComments";
 import { useContext } from "react";
 import { ContextComments } from "../context/CommentsContext";
-import LoadingSeemore from "./LoadingSeemore";
-import LayoutLoading from "../layout/LayoutLoading";
+import SeeMore from "./reuse/SeeMore";
 
-export default function Comments({ userAuth, feedback }) {
-  const { comments, deleteCom, loading, count } = useComments(
+function Comments({ userAuth, feedback }) {
+  const { deleteCom, loading, count, comments } = useComments(
     feedback,
     userAuth
   );
   const { loadingNext, getNextComms } = useContext(ContextComments);
 
+  console.log("render..");
   return (
     <div className={styles.contCom}>
       {count && (
         <h3 className={styles.title}>{(count && count) || 0} Comments</h3>
       )}
-      <div>
-        {comments &&
-          comments.map((com) => (
-            <Comment
-              key={com.idDoc}
-              comment={com}
-              deleteCom={deleteCom}
-              userAuth={userAuth}
-            />
-          ))}
-        {comments && comments.length > 2 ? (
-          <LayoutLoading>
-            {loadingNext ? (
-              <LoadingSeemore />
-            ) : (
-              <BtnSeeMore seeMore={getNextComms} />
-            )}
-          </LayoutLoading>
-        ) : (
-          ""
-        )}
-      </div>
+      {comments &&
+        comments.map((comment) => (
+          <Comment
+            key={comment.idDoc || comment.id}
+            comment={comment}
+            deleteCom={deleteCom}
+            userAuth={userAuth}
+          />
+        ))}
+      <SeeMore
+        loading={loadingNext}
+        count={count}
+        data={comments}
+        fnSeemore={getNextComms}
+      />
     </div>
   );
 }
+
+export default Comments;

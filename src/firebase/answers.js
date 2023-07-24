@@ -31,7 +31,7 @@ export function operationsAnswers(idSuggestion, idComment) {
     const qry = query(answerRef, limit(3));
     const querySnapshot = await getDocs(qry);
     querySnapshot.forEach((answer) => {
-      const objAns = { ...answer.data(), idDocResp: answer.id };
+      const objAns = { ...answer.data(), idDoc: answer.id };
       answers.push(objAns);
     });
     if (querySnapshot.size !== 0) {

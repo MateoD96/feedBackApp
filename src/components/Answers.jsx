@@ -15,8 +15,8 @@ function Answers({ answers, loadingAnswers }) {
     return (
       <div className={stylesAnswers.cont}>
         {answers &&
-          answers.map((answer, i) => {
-            return <p key={i}>{answer.content}</p>;
+          answers.map((answer) => {
+            return <p key={answer.idDoc || answer.id}>{answer.content}</p>;
           })}
       </div>
     );
